@@ -1,0 +1,17 @@
+%{
+#include "lambda1.tab.h"
+%}
+
+%option nounput noinput
+
+%%
+"lambda"               {return LAMBDA;}
+"("                    {return LPARENS;}
+")"                    {return RPARENS;}
+"."                    {return DOT;}
+[0-9]+                 {return NUMBER;}
+fun[0-9]+              {return FUNCTION;}
+[a-z]+                 {return VARIABLE;}
+[ \r\n\t]+             ; 
+[^ \r\n\t\(\)\.]+      {return UNKNOWN;}
+%%

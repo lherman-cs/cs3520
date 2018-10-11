@@ -1,0 +1,160 @@
+cat cases/bad-case10.txt
+(lambda fun100. 30)
+
+./lambda1 < cases/bad-case10.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case1.txt
+czmxc;lklsk;kw;ekwq;ked;zkc;xjc;lisapcuisap0idpasipdoais;disa[pdisa[i]]
+
+./lambda1 < cases/bad-case1.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case2.txt
+(30 30)(30 30)
+
+./lambda1 < cases/bad-case2.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case3.txt
+()
+
+./lambda1 < cases/bad-case3.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case4.txt
+(lambda 3 3)
+
+./lambda1 < cases/bad-case4.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case5.txt
+(lambda 4.)
+
+./lambda1 < cases/bad-case5.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case6.txt
+(lambda lambda)
+
+./lambda1 < cases/bad-case6.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case7.txt
+fun100 30
+
+./lambda1 < cases/bad-case7.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case8.txt
+(lambda v.     100        ) this is a junk
+
+./lambda1 < cases/bad-case8.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/bad-case9.txt
+this is a junk (lambda v.100)
+
+./lambda1 < cases/bad-case9.txt
+
+Sorry, Charlie: Not everybody can be a lambda expression!
+
+cat cases/case10.txt
+((lambda v  . (lambda p  . 300))fun100101010)
+
+./lambda1 < cases/case10.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a combination
+
+cat cases/case1.txt
+(lambda v.10)
+
+./lambda1 < cases/case1.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a abstraction
+
+cat cases/case2.txt
+(lambda v.(lambda v.10))
+
+./lambda1 < cases/case2.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a abstraction
+
+cat cases/case3.txt
+((lambda v.   10)(lambda p.300))
+
+./lambda1 < cases/case3.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a combination
+
+cat cases/case4.txt
+(((lambda v.   10)(lambda p.300))((lambda v.   10)(lambda p.300)))
+
+./lambda1 < cases/case4.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a combination
+
+cat cases/case5.txt
+funvariable
+
+./lambda1 < cases/case5.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a variable
+
+cat cases/case6.txt
+3000000000
+
+./lambda1 < cases/case6.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a constant
+
+cat cases/case7.txt
+fun21301231209302
+
+./lambda1 < cases/case7.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a constant
+
+cat cases/case8.txt
+(30303030303 fun30303030303)
+
+./lambda1 < cases/case8.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a combination
+
+cat cases/case9.txt
+(lambda funvariable   .  fun30303030303)
+
+./lambda1 < cases/case9.txt
+
+Parse for syntactically correct lambda-calculus expression was successful:
+
+The overall expression is a abstraction
+

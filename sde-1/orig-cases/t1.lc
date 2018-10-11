@@ -1,0 +1,1 @@
+((lambda x.(fun1 x)) 100)
