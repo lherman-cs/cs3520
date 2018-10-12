@@ -59,3 +59,19 @@ let rec formNewMeans = function
   | (newMeansSum, []) -> []
   | ([], newCounts) -> []
   | (h1::t1, h2::t2) -> scaleList(h1, h2)::formNewMeans(t1, t2)
+
+
+let nearestMean(h, means) = listMinPos(distanceSqAllMeans(h, means));;
+
+let rec reclassify = function
+  (* Recurse each point *)
+  (h::t, currMeans, newMeansSum, newCounts) -> 
+    reclassify(
+      t, 
+      currMeans, 
+      updateMeansSum(h, nearestMean(h, currMeans), newMeansSum), 
+      updateCounts(nearestMean(h, currMeans), newCounts)
+    )
+
+  (* update te newMeansSum and newCounts and move the currMeans *)
+  | ([], currMeans, newMeansSum, newCounts) -> formNewMeans(newMeansSum, newCounts)

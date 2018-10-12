@@ -77,3 +77,16 @@ assert(updateMeansSum([1.0;2.0;3.0],2,updateMeansSum([1.0;2.0;3.0],2,zeroMeansSe
 
 (* formNewMeans *)
 assert(formNewMeans([[100.5];[-29.1]], [3;5]) = [[33.5]; [-5.82]]);;
+
+(* reclassify *)
+#use "inputs.caml";;
+let muzero = [[-57.244999; -43.969002]; [-68.746002; -55.521999]];;
+
+let mu1 = reclassify(h,muzero,zeroMeansSet(2,2),zeroCounts(2));;
+assert(mu1 = [[7.09669729142857; 6.97822274285714084]; [-59.7644003600000104; -62.4527998400000044]]);;
+
+let mu2 = reclassify(h,mu1,zeroMeansSet(2,2),zeroCounts(2));;
+assert(mu2 = [[48.5825602000000174; 49.1188998900000087]; [-51.10444003; -52.52021005]]);;
+
+let mu3 = reclassify(h,mu2,zeroMeansSet(2,2),zeroCounts(2));;
+assert(mu3 = [[48.5825602000000174; 49.1188998900000087]; [-51.10444003; -52.52021005]]);;
