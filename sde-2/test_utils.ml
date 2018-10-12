@@ -74,3 +74,6 @@ assert(updateMeansSum([1.0;2.0;3.0],2,zeroMeansSet(4,3)) = [[0.; 0.; 0.]; [0.; 0
 assert(updateMeansSum([1.0;2.0;3.0],0,zeroMeansSet(4,3)) = [[1.; 2.; 3.]; [0.; 0.; 0.]; [0.; 0.; 0.]; [0.; 0.; 0.]]);;
 assert(updateMeansSum([3.0;2.0;1.0],3,updateMeansSum([1.0;2.0;3.0],0,zeroMeansSet(4,3))) = [[1.; 2.; 3.]; [0.; 0.; 0.]; [0.; 0.; 0.]; [3.; 2.; 1.]]);;
 assert(updateMeansSum([1.0;2.0;3.0],2,updateMeansSum([1.0;2.0;3.0],2,zeroMeansSet(4,3))) = [[0.; 0.; 0.]; [0.; 0.; 0.]; [2.; 4.; 6.]; [0.; 0.; 0.]]);;
+
+(* formNewMeans *)
+assert(formNewMeans([[100.5];[-29.1]], [3;5]) = [[33.5]; [-5.82]]);;

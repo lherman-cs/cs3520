@@ -51,9 +51,11 @@ let rec updateCounts = function
 
 let rec updateMeansSum = function
   (v, x, []) -> []
-  | (v, 0, mean::meansTail) -> elsum(v, mean)::meansTail
-  | (v, x, mean::meansTail) ->  mean::updateMeansSum(v, x - 1, meansTail)
+  | (v, 0, h::t) -> elsum(v, h)::t
+  | (v, x, h::t) ->  h::updateMeansSum(v, x - 1, t)
 
-(* let rec formNewMeans = function *)
-
-
+let rec formNewMeans = function
+  ([], []) -> []
+  | (newMeansSum, []) -> []
+  | ([], newCounts) -> []
+  | (h1::t1, h2::t2) -> scaleList(h1, h2)::formNewMeans(t1, t2)
