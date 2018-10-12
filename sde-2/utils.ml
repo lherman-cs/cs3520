@@ -2,9 +2,7 @@ open List;;
 #use "helpers.ml";;
 
 let rec distanceR2 = function
-  ([], []) -> 0.
-  | (v1, []) -> 0.
-  | ([], v2) -> 0.
+  ([], []) | (_, []) | ([], _) -> 0.
   | (h1::t1, h2::t2) -> ((h1 -. h2) ** 2.) +. distanceR2(t1, t2)
 
 let rec distanceSqAllMeans = function
@@ -14,9 +12,7 @@ let rec distanceSqAllMeans = function
 let listMinPos(alist) = find(alist, minElement(alist));;
 
 let rec elsum = function
-  ([], []) -> []
-  | (v1, []) -> []
-  | ([], v2) -> []
+  ([], []) | (_, []) | ([], _) -> []
   | (h1::t1, h2::t2) -> (h1 +. h2)::elsum(t1, t2)
 
 let rec scaleList = function
@@ -34,11 +30,11 @@ let rec zeroMeansSet = function
 
 let zeroVdiff(v1, v2) = v1 = v2;;
 
-let rec zeroSetDiff = function
-  ([], []) -> true
-  | (s1, []) -> true
-  | ([], s2) -> true
-  | (h1::t1, h2::t2) -> zeroVdiff(h1, h2) && zeroSetDiff(t1, t2)
+let rec _zeroSetDiff = function
+  ([], [], last) | (_, [], last) | ([], _, last) -> last
+  | (_, _, false) -> false
+  | (h1::t1, h2::t2, last) -> _zeroSetDiff(t1, t2, (last && zeroVdiff(h1, h2)))
+let zeroSetDiff(s1, s2) = _zeroSetDiff(s1, s2, true);;
 
 let rec zeroCounts = function
   0 -> []
@@ -55,17 +51,18 @@ let rec updateMeansSum = function
   | (v, x, h::t) ->  h::updateMeansSum(v, x - 1, t)
 
 let rec formNewMeans = function
-  ([], []) -> []
-  | (newMeansSum, []) -> []
-  | ([], newCounts) -> []
+  ([], []) | (_, []) | ([], _) -> []
   | (h1::t1, h2::t2) -> scaleList(h1, h2)::formNewMeans(t1, t2)
 
 
 let nearestMean(h, means) = listMinPos(distanceSqAllMeans(h, means));;
 
 let rec reclassify = function
+  (* update te newMeansSum and newCounts and move the currMeans *)
+  ([], currMeans, newMeansSum, newCounts) -> formNewMeans(newMeansSum, newCounts)
+  
   (* Recurse each point *)
-  (h::t, currMeans, newMeansSum, newCounts) -> 
+  | (h::t, currMeans, newMeansSum, newCounts) -> 
     reclassify(
       t, 
       currMeans, 
@@ -73,5 +70,9 @@ let rec reclassify = function
       updateCounts(nearestMean(h, currMeans), newCounts)
     )
 
-  (* update te newMeansSum and newCounts and move the currMeans *)
-  | ([], currMeans, newMeansSum, newCounts) -> formNewMeans(newMeansSum, newCounts)
+
+let reclassifyPartial(c, h, means) = reclassify(h, means, zeroMeansSet(c, (length (hd h))), zeroCounts(c));; 
+
+let rec cmeans = function
+  (c, h, currMeans) when zeroSetDiff(reclassifyPartial(c, h, currMeans), currMeans) -> currMeans
+  | (c, h, currMeans) -> cmeans(c, h, reclassifyPartial(c, h, currMeans))
