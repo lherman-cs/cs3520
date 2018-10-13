@@ -1,5 +1,19 @@
 open List;;
-#use "utils.ml";;
+#use "cmeans.caml";;
+
+(* Helper functions *)
+let eps = 1e-9;;
+let rec _equalVector = function
+  ([], [], last) | (_, [], last) | ([], _, last) -> last
+  | (_, _, false) -> false
+  | (h1::t1, h2::t2, last) -> _equalVector(t1, t2, (last && ((h1 -. eps) <= h2 && h2 <= (h1 +. eps))))
+let equalVector(v1, v2) = _equalVector(v1, v2, true);;
+
+let rec _equalSet = function
+  ([], [], last) | (_, [], last) | ([], _, last) -> last
+  | (_, _, false) -> false
+  | (h1::t1, h2::t2, last) -> _equalSet(t1, t2, (last && equalVector(h1, h2)))
+let equalSet(s1, s2) = _equalSet(s1, s2, true);;
 
 (* Test distanceR2 *)
 let v1 = [1.0;2.0;3.0];;
@@ -82,18 +96,18 @@ assert(formNewMeans([[100.5];[-29.1]], [3;5]) = [[33.5]; [-5.82]]);;
 #use "inputs.caml";;
 let muzero = [[-57.244999; -43.969002]; [-68.746002; -55.521999]];;
 
-let mu1 = reclassify(h,muzero,zeroMeansSet(2,2),zeroCounts(2));;
-assert(mu1 = [[7.09669729142857; 6.97822274285714084]; [-59.7644003600000104; -62.4527998400000044]]);;
+let mu1 = reclassify(h, muzero,zeroMeansSet(2,2), zeroCounts(2));;
+assert(equalSet(mu1, [[7.09669729142857; 6.97822274285714084]; [-59.7644003600000104; -62.4527998400000044]]));;
 
 let mu2 = reclassify(h,mu1,zeroMeansSet(2,2),zeroCounts(2));;
-assert(mu2 = [[48.5825602000000174; 49.1188998900000087]; [-51.10444003; -52.52021005]]);;
+assert(equalSet(mu2, [[48.5825602000000174; 49.1188998900000087]; [-51.10444003; -52.52021005]]));;
 
 let mu3 = reclassify(h,mu2,zeroMeansSet(2,2),zeroCounts(2));;
-assert(mu3 = [[48.5825602000000174; 49.1188998900000087]; [-51.10444003; -52.52021005]]);;
+assert(equalSet(mu3, [[48.5825602000000174; 49.1188998900000087]; [-51.10444003; -52.52021005]]));;
 
 (* cmeans *)
 let muzero = [[-57.244999; -43.969002]; [-68.746002; -55.521999]];;
-assert(cmeans(2,h,muzero) = [[48.5825602000000174; 49.1188998900000087]; [-51.10444003; -52.52021005]]);;
+assert(equalSet(cmeans(2,h,muzero), [[48.5825602000000174; 49.1188998900000087]; [-51.10444003; -52.52021005]]));;
 
 #use "test4d.caml";;
 let muzero4 = [[11.739382; 11.130896; 5.769114; 11.800967];[0.27744; 7.263812; 4.742097; 6.796983]];;
@@ -101,7 +115,11 @@ let expected = [
   [5.91223877311895052; 0.987439540450160469; 6.27431081118970546;1.23034376655948985];
   [-1.28225301480968668; -6.19357348581312905; -1.56818392290657327;-6.55956124332180668]
 ];;
-(* #trace cmeans;; *)
 let actual = cmeans(2, v, muzero4);;
-assert(actual = expected);;
-(* #untrace cmeans;; *)
+assert(equalSet(actual, expected));;
+
+#use"inputVectors2.caml";;
+let muzero3 = [[-26.32; -38.094002]; [-48.57; -54.43]];;
+let expected = [[50.8551899300000088; 50.86648994];[-50.6787099199999815; -51.6003100600000195]];;
+let actual = cmeans(2,vset2,muzero3);;
+assert(equalSet(actual, expected));;
