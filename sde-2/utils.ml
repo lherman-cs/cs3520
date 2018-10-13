@@ -28,7 +28,11 @@ let rec zeroMeansSet = function
   (0, d) -> []
   | (c, d) -> zeroes(d)::zeroMeansSet(c - 1, d)
 
-let zeroVdiff(v1, v2) = v1 = v2;;
+let rec _zeroVdiff = function
+  ([], [], last) | (_, [], last) | ([], _, last) -> last
+  | (_, _, false) -> false
+  | (h1::t1, h2::t2, last) -> _zeroVdiff(t1, t2, (last && (h1 = h2)))
+let zeroVdiff(s1, s2) = _zeroVdiff(s1, s2, true);;;;
 
 let rec _zeroSetDiff = function
   ([], [], last) | (_, [], last) | ([], _, last) -> last
