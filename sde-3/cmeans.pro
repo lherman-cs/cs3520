@@ -93,3 +93,25 @@ formNewMeans([], [], []).
 formNewMeans([H1|T1], [H2|T2], [H3|T3]) :-
     scaleList(H1, H2, H3),
     formNewMeans(T1, T2, T3).
+
+
+nearestMean(H, Means, Pos) :-
+    distanceSqAllMeans(H, Means, Distances),
+    listMinPos(Distances, Pos).
+
+reclassifyHelper([], _, NewMeansSum, NewCounts, UpdatedMeans) :-
+    formNewMeans(NewMeansSum, NewCounts, UpdatedMeans).
+
+reclassifyHelper([H|T], CurrMeans, NewMeansSum, NewCounts, UpdatedMeans) :-
+    nearestMean(H, CurrMeans, NearestPos),
+    updateMeansSum(H, NearestPos, NewMeansSum, UpdatedNewMeansSum),
+    updateCounts(NearestPos, NewCounts, UpdatedNewCounts),
+    reclassifyHelper(T, CurrMeans, UpdatedNewMeansSum, UpdatedNewCounts, UpdatedMeans).
+
+reclassify(H, CurrMeans, UpdatedMeans) :-
+    nth0(0, CurrMeans, V),
+    length(V, Dim),
+    length(CurrMeans, Cmeans),
+    zeroMeansSet(Cmeans, Dim, InitNewMeansSum),
+    zeroCounts(Cmeans, InitNewCounts),
+    reclassifyHelper(H, CurrMeans, InitNewMeansSum, InitNewCounts, UpdatedMeans).
