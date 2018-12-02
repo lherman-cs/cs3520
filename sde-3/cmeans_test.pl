@@ -78,5 +78,9 @@ test(scaleList) :-
     once(scaleList([1.0, 2.0, 3.0], 0, Answer)),
     assertion(Answer==[1.0, 2.0, 3.0]).
 
+test(zeroes) :-
+    once(zeroes(6, Alist)),
+    assertion(Alist=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]).
+
 :- end_tests(cmeans).
 :- run_tests.

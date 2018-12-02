@@ -46,3 +46,9 @@ scaleList([H|T], Scale, Answer) :-
     scaleList(T, Scale, Rest),
     Scaled is H/Scale,
     Answer=[Scaled|Rest].
+
+zeroes(0, []).
+zeroes(Size, List) :-
+    RestSize is Size-1,
+    zeroes(RestSize, Rest),
+    List=[0.0|Rest].
