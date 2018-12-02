@@ -5,10 +5,9 @@ distanceR2([H1|T1], [H2|T2], Dsq) :-
 
 
 distanceSqAllMeans(_, [], []).
-distanceSqAllMeans(V, [VsetH|VsetT], Dsq) :-
+distanceSqAllMeans(V, [VsetH|VsetT], [DsqCur|DsqRest]) :-
     distanceSqAllMeans(V, VsetT, DsqRest),
-    distanceR2(V, VsetH, DsqCur),
-    Dsq=[DsqCur|DsqRest].
+    distanceR2(V, VsetH, DsqCur).
 
 
 findPos([], _, -1).
@@ -34,30 +33,26 @@ listMinPos(List, Pos) :-
 
 
 elsum([], [], []).
-elsum([H1|T1], [H2|T2], S) :-
-    elsum(T1, T2, Rest),
-    Sum is H1+H2,
-    append([Sum], Rest, S).
+elsum([H1|T1], [H2|T2], [H3|T3]) :-
+    H3 is H1+H2,
+    elsum(T1, T2, T3).
 
 
 scaleList([], _, []).
 scaleList(H, 0, H).
-scaleList([H|T], Scale, Answer) :-
+scaleList([H|T], Scale, [Scaled|Rest]) :-
     scaleList(T, Scale, Rest),
-    Scaled is H/Scale,
-    Answer=[Scaled|Rest].
+    Scaled is H/Scale.
 
 
 zeroes(0, []).
-zeroes(Size, List) :-
+zeroes(Size, [0.0|Rest]) :-
     RestSize is Size-1,
-    zeroes(RestSize, Rest),
-    List=[0.0|Rest].
+    zeroes(RestSize, Rest).
 
 
 zeroMeansSet(0, _, []).
-zeroMeansSet(Cmeans, Dim, Set) :-
+zeroMeansSet(Cmeans, Dim, [Vector|RestSet]) :-
     RestCmeans is Cmeans-1,
     zeroMeansSet(RestCmeans, Dim, RestSet),
-    zeroes(Dim, Vector),
-    Set=[Vector|RestSet].
+    zeroes(Dim, Vector).
