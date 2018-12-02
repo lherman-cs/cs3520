@@ -86,5 +86,11 @@ test(zeroMeansSet) :-
     once(zeroMeansSet(4, 5, TheSet)),
     assertion(TheSet==[[0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0]]).
 
+test(zeroVdiff) :-
+    once(\+zeroVdiff([1, 2, 3, 4], [4, 3, 2, 1])).
+
+test(zeroVdiff) :-
+    once(zeroVdiff([1, 2, 3, 4], [1, 2, 3, 4])).
+
 :- end_tests(cmeans).
 :- run_tests.

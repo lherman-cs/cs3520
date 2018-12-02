@@ -56,3 +56,8 @@ zeroMeansSet(Cmeans, Dim, [Vector|RestSet]) :-
     RestCmeans is Cmeans-1,
     zeroMeansSet(RestCmeans, Dim, RestSet),
     zeroes(Dim, Vector).
+
+
+zeroVdiff([], []).
+zeroVdiff([H|T1], [H|T2]) :-
+    zeroVdiff(T1, T2).
