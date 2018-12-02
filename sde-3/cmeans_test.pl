@@ -139,5 +139,53 @@ test(formNewMeans) :-
     once(formNewMeans([[100.5], [-29.1]], [3, 5], NewMeans)),
     assertion(NewMeans==[[33.5], [-5.82]]).
 
+test(reclassify) :-
+    h(ts2, H),
+    once(reclassify(H, [[1.0, 1.0], [-1.0, -2.0]], NewMu)),
+    assertion(NewMu==[[47.698002, 62.48], [-49.005001, -41.327999]]).
+
+test(reclassify) :-
+    h(ts2, H),
+    once(reclassify(H, [[1.0, 1.0], [-1.0, -2.0]], NewMu)),
+    once(reclassify(H, NewMu, Mu2)),
+    assertion(Mu2==[[47.698002, 62.48], [-49.005001, -41.327999]]).
+
+test(reclassify) :-
+    h(ts2, H),
+    once(reclassify(H, [[1.0, 1.0], [-1.0, -2.0]], NewMu)),
+    once(reclassify(H, NewMu, Mu2)),
+    once(reclassify(H, Mu2, Mu3)),
+    assertion(Mu3==[[47.698002, 62.48], [-49.005001, -41.327999]]).
+
+test(reclassify) :-
+    bigH(H),
+    muzero(MZ0),
+    once(reclassify(H, MZ0, Mu1)),
+    assertion(Mu1==[[7.09669729142857, 6.978222742857141], [-59.76440036000001, -62.452799840000004]]).
+
+test(reclassify) :-
+    bigH(H),
+    muzero(MZ0),
+    once(reclassify(H, MZ0, Mu1)),
+    once(reclassify(H, Mu1, Mu2)),
+    assertion(Mu2==[[48.58256020000002, 49.11889989000001], [-51.10444003, -52.52021005]]).
+
+test(reclassify) :-
+    bigH(H),
+    muzero(MZ0),
+    once(reclassify(H, MZ0, Mu1)),
+    once(reclassify(H, Mu1, Mu2)),
+    once(reclassify(H, Mu2, Mu3)),
+    assertion(Mu3==[[48.58256020000002, 49.11889989000001], [-51.10444003, -52.52021005]]).
+
+test(reclassify) :-
+    bigH(H),
+    muzero(MZ0),
+    once(reclassify(H, MZ0, Mu1)),
+    once(reclassify(H, Mu1, Mu2)),
+    once(reclassify(H, Mu2, Mu3)),
+    once(reclassify(H, Mu3, Mu4)),
+    assertion(Mu4==[[48.58256020000002, 49.11889989000001], [-51.10444003, -52.52021005]]).
+
 :- end_tests(cmeans).
 :- run_tests.
