@@ -87,3 +87,9 @@ updateMeansSum(V, 0, [H1|T], [H2|T]) :-
 updateMeansSum(V, X, [H|T1], [H|T2]) :-
     RestX is X-1,
     updateMeansSum(V, RestX, T1, T2).
+
+
+formNewMeans([], [], []).
+formNewMeans([H1|T1], [H2|T2], [H3|T3]) :-
+    scaleList(H1, H2, H3),
+    formNewMeans(T1, T2, T3).

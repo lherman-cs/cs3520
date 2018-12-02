@@ -135,5 +135,9 @@ test(updateMeansSum) :-
     once(updateMeansSum([1.0, 2.0, 3.0], 2, M, Result)),
     assertion(Result==[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [1.0, 2.0, 3.0], [0.0, 0.0, 0.0]]).
 
+test(formNewMeans) :-
+    once(formNewMeans([[100.5], [-29.1]], [3, 5], NewMeans)),
+    assertion(NewMeans==[[33.5], [-5.82]]).
+
 :- end_tests(cmeans).
 :- run_tests.
