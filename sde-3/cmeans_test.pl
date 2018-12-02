@@ -92,5 +92,11 @@ test(zeroVdiff) :-
 test(zeroVdiff) :-
     once(zeroVdiff([1, 2, 3, 4], [1, 2, 3, 4])).
 
+test(zeroSetDiff) :-
+    once(\+zeroSetDiff([[1, 2, 3], [1, 2, 4]], [[1, 2, 3], [1, 2, 3]])).
+
+test(zeroSetDiff) :-
+    once(zeroSetDiff([[1, 2, 3], [1, 2, 3]], [[1, 2, 3], [1, 2, 3]])).
+
 :- end_tests(cmeans).
 :- run_tests.
