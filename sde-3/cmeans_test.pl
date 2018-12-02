@@ -66,5 +66,9 @@ test(listMinPos) :-
     once(listMinPos(Dists, Where)),
     assertion(Where==2).
 
+test(elsum) :-
+    once(elsum([1.0, 2.0, 3.0, 4.0], [6.0, 7.0, 8.0, 9.0], Answer)),
+    assertion(Answer==[7.0, 9.0, 11.0, 13.0]).
+
 :- end_tests(cmeans).
 :- run_tests.
