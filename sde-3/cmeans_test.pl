@@ -102,5 +102,28 @@ test(zeroCounts) :-
     once(zeroCounts(8, Out)),
     assertion(Out==[0, 0, 0, 0, 0, 0, 0, 0]).
 
+test(updateCounts) :-
+    once(zeroCounts(6, S)),
+    once(updateCounts(0, S, Updated)),
+    assertion(Updated==[1, 0, 0, 0, 0, 0]).
+
+test(updateCounts) :-
+    once(zeroCounts(6, S)),
+    once(updateCounts(3, S, Updated)),
+    assertion(Updated==[0, 0, 0, 1, 0, 0]).
+
+test(updateCounts) :-
+    once(zeroCounts(6, S)),
+    once(updateCounts(3, S, Updated)),
+    once(updateCounts(3, Updated, Overall)),
+    assertion(Overall==[0, 0, 0, 2, 0, 0]).
+
+test(updateCounts) :-
+    once(zeroCounts(6, S)),
+    once(updateCounts(3, S, Updated)),
+    once(updateCounts(3, Updated, Overall)),
+    once(updateCounts(0, Overall, Overall2)),
+    assertion(Overall2==[1, 0, 0, 2, 0, 0]).
+
 :- end_tests(cmeans).
 :- run_tests.

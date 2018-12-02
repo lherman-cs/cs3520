@@ -73,3 +73,10 @@ zeroCounts(0, []).
 zeroCounts(C, [0|T]) :-
     RestC is C-1,
     zeroCounts(RestC, T).
+
+
+updateCounts(0, [H1|T], [H2|T]) :-
+    H2 is H1+1.
+updateCounts(P, [H|T1], [H|T2]) :-
+    RestP is P-1,
+    updateCounts(RestP, T1, T2).
