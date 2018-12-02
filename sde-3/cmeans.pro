@@ -39,13 +39,16 @@ elsum([H1|T1], [H2|T2], [H3|T3]) :-
 
 
 scaleList([], _, []).
-scaleList(H, 0, H).
+scaleList(H1, 0, H2) :- !,
+    H2=H1.
 scaleList([H|T], Scale, [Scaled|Rest]) :-
     scaleList(T, Scale, Rest),
     Scaled is H/Scale.
 
 
 zeroes(0, []).
+zeroes(Size, []) :-
+    Size<0.
 zeroes(Size, [0.0|Rest]) :-
     RestSize is Size-1,
     zeroes(RestSize, Rest).
@@ -70,6 +73,8 @@ zeroSetDiff([H1|T1], [H2|T2]) :-
 
 
 zeroCounts(0, []).
+zeroCounts(C, []) :-
+    C<0.
 zeroCounts(C, [0|T]) :-
     RestC is C-1,
     zeroCounts(RestC, T).
@@ -115,3 +120,13 @@ reclassify(H, CurrMeans, UpdatedMeans) :-
     zeroMeansSet(Cmeans, Dim, InitNewMeansSum),
     zeroCounts(Cmeans, InitNewCounts),
     reclassifyHelper(H, CurrMeans, InitNewMeansSum, InitNewCounts, UpdatedMeans).
+
+
+cmeans(H, MuCurrent, MuFinal) :-
+    reclassify(H, MuCurrent, UpdatedMu),
+    zeroSetDiff(MuCurrent, UpdatedMu),
+    MuFinal=UpdatedMu.
+
+cmeans(H, MuCurrent, MuFinal) :-
+    reclassify(H, MuCurrent, UpdatedMu),
+    cmeans(H, UpdatedMu, MuFinal).

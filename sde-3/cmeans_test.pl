@@ -187,5 +187,10 @@ test(reclassify) :-
     once(reclassify(H, Mu3, Mu4)),
     assertion(Mu4==[[48.58256020000002, 49.11889989000001], [-51.10444003, -52.52021005]]).
 
+test(cmeans) :-
+    h(ts1, H),
+    once(cmeans(H, [[1.0, 1.0], [-1.0, -2.0]], MuFinal)),
+    assertion(MuFinal==[[42.2117505, 50.967749749999996], [-49.7515, -45.11149975]]).
+
 :- end_tests(cmeans).
 :- run_tests.
