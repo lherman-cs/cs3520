@@ -70,5 +70,13 @@ test(elsum) :-
     once(elsum([1.0, 2.0, 3.0, 4.0], [6.0, 7.0, 8.0, 9.0], Answer)),
     assertion(Answer==[7.0, 9.0, 11.0, 13.0]).
 
+test(scaleList) :-
+    once(scaleList([1.0, 2.0, 3.0], 10, Result)),
+    assertion(Result==[0.1, 0.2, 0.3]).
+
+test(scaleList) :-
+    once(scaleList([1.0, 2.0, 3.0], 0, Answer)),
+    assertion(Answer==[1.0, 2.0, 3.0]).
+
 :- end_tests(cmeans).
 :- run_tests.

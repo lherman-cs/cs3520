@@ -44,9 +44,19 @@ listMinPos(List, Pos) :-
     listMin(List, Min),
     findPos(List, Min, Pos).
 
+
 elsum([], [], S) :-
     S=[].
 elsum([H1|T1], [H2|T2], S) :-
     elsum(T1, T2, Rest),
     Sum is H1+H2,
     append([Sum], Rest, S).
+
+
+scaleList([], _, Answer) :-
+    Answer=[].
+scaleList(H, 0, H).
+scaleList([H|T], Scale, Answer) :-
+    scaleList(T, Scale, Rest),
+    Scaled is H/Scale,
+    append([Scaled], Rest, Answer).
