@@ -67,3 +67,9 @@ zeroSetDiff([], []).
 zeroSetDiff([H1|T1], [H2|T2]) :-
     zeroVdiff(H1, H2),
     zeroSetDiff(T1, T2).
+
+
+zeroCounts(0, []).
+zeroCounts(C, [0|T]) :-
+    RestC is C-1,
+    zeroCounts(RestC, T).

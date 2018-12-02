@@ -98,5 +98,9 @@ test(zeroSetDiff) :-
 test(zeroSetDiff) :-
     once(zeroSetDiff([[1, 2, 3], [1, 2, 3]], [[1, 2, 3], [1, 2, 3]])).
 
+test(zeroCounts) :-
+    once(zeroCounts(8, Out)),
+    assertion(Out==[0, 0, 0, 0, 0, 0, 0, 0]).
+
 :- end_tests(cmeans).
 :- run_tests.
