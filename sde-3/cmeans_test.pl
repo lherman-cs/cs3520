@@ -125,5 +125,15 @@ test(updateCounts) :-
     once(updateCounts(0, Overall, Overall2)),
     assertion(Overall2==[1, 0, 0, 2, 0, 0]).
 
+test(updateMeansSum) :-
+    once(zeroMeansSet(4, 3, M)),
+    once(updateMeansSum([1.0, 2.0, 3.0], 0, M, Result)),
+    assertion(Result==[[1.0, 2.0, 3.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]).
+
+test(updateMeansSum) :-
+    once(zeroMeansSet(4, 3, M)),
+    once(updateMeansSum([1.0, 2.0, 3.0], 2, M, Result)),
+    assertion(Result==[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [1.0, 2.0, 3.0], [0.0, 0.0, 0.0]]).
+
 :- end_tests(cmeans).
 :- run_tests.

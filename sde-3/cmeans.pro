@@ -80,3 +80,10 @@ updateCounts(0, [H1|T], [H2|T]) :-
 updateCounts(P, [H|T1], [H|T2]) :-
     RestP is P-1,
     updateCounts(RestP, T1, T2).
+
+
+updateMeansSum(V, 0, [H1|T], [H2|T]) :-
+    elsum(V, H1, H2).
+updateMeansSum(V, X, [H|T1], [H|T2]) :-
+    RestX is X-1,
+    updateMeansSum(V, RestX, T1, T2).
