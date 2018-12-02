@@ -47,8 +47,17 @@ scaleList([H|T], Scale, Answer) :-
     Scaled is H/Scale,
     Answer=[Scaled|Rest].
 
+
 zeroes(0, []).
 zeroes(Size, List) :-
     RestSize is Size-1,
     zeroes(RestSize, Rest),
     List=[0.0|Rest].
+
+
+zeroMeansSet(0, _, []).
+zeroMeansSet(Cmeans, Dim, Set) :-
+    RestCmeans is Cmeans-1,
+    zeroMeansSet(RestCmeans, Dim, RestSet),
+    zeroes(Dim, Vector),
+    Set=[Vector|RestSet].

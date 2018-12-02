@@ -82,5 +82,9 @@ test(zeroes) :-
     once(zeroes(6, Alist)),
     assertion(Alist=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]).
 
+test(zeroMeansSet) :-
+    once(zeroMeansSet(4, 5, TheSet)),
+    assertion(TheSet==[[0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0]]).
+
 :- end_tests(cmeans).
 :- run_tests.
