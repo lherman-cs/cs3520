@@ -192,5 +192,16 @@ test(cmeans) :-
     once(cmeans(H, [[1.0, 1.0], [-1.0, -2.0]], MuFinal)),
     assertion(MuFinal==[[42.2117505, 50.967749749999996], [-49.7515, -45.11149975]]).
 
+test(cmeans) :-
+    h(ts2, H),
+    cmeans(H, [[1.0, 1.0], [-1.0, -2.0]], MuFinal),
+    assertion(MuFinal==[[47.698002, 62.48], [-49.005001, -41.327999]]).
+
+test(cmeans) :-
+    bigH(H),
+    muzero(MZ0),
+    cmeans(H, MZ0, MuFinal),
+    assertion(MuFinal==[[48.58256020000002, 49.11889989000001], [-51.10444003, -52.52021005]]).
+
 :- end_tests(cmeans).
 :- run_tests.

@@ -122,11 +122,10 @@ reclassify(H, CurrMeans, UpdatedMeans) :-
     reclassifyHelper(H, CurrMeans, InitNewMeansSum, InitNewCounts, UpdatedMeans).
 
 
+cmeansHelper(_, MuPrev, MuPrev, MuPrev) :- !.
+cmeansHelper(H, _, MuCurrent, MuFinal) :-
+    reclassify(H, MuCurrent, NewMu),
+    cmeansHelper(H, MuCurrent, NewMu, MuFinal), !.
 cmeans(H, MuCurrent, MuFinal) :-
-    reclassify(H, MuCurrent, UpdatedMu),
-    zeroSetDiff(MuCurrent, UpdatedMu),
-    MuFinal=UpdatedMu.
-
-cmeans(H, MuCurrent, MuFinal) :-
-    reclassify(H, MuCurrent, UpdatedMu),
-    cmeans(H, UpdatedMu, MuFinal).
+    reclassify(H, MuCurrent, NewMu),
+    cmeansHelper(H, MuCurrent, NewMu, MuFinal), !.
